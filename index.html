@@ -1,90 +1,285 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Progate</title>
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <title>LHotels.com</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<% css.page_url(page) %>" type="text/css" media="all and (max-width:480px)" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="">
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/hannari.css">
+    <!-- leaflet検索窓用plugin -->
+    <!-- plugin始まり -->
+    <!-- <script src='leaflet/lib/JQuery/jquery-1.11.3.min.js'></script>
+    <link rel="stylesheet" href="leaflet/dist/geojsonautocomplete.min.css" />
+    <script src="leaflet/dist/geojsonautocomplete.min.js"></script> -->
+    <!-- pluginここまで -->
+    <!-- leaflet登録リスト用plugin -->
+    <!-- plugin始まり -->
+    <!-- <link rel="stylesheet" href="location-list/src/leaflet.locationlist.css" />
+    <script src="location-list/src/leaflet.locationlist.js"></script> -->
+    <!-- pluginここまで -->
+    <!-- tagFilterButton用plugin -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2.4.0/src/easy-button.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-tag-filter-button@0.0.5/src/leaflet-tag-filter-button.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2.4.0/src/easy-button.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-tag-filter-button@0.0.5/src/leaflet-tag-filter-button.min.js"></script>
+    <!-- pluginここまで -->
+
+    <style type="text/css">
+        .wrap-container {
+            width: 100%;
+            height: 100%;
+            background-image: url(https://resize2-icotto.k-img.com/cF_aSUSeK_Pv9Mtw14UN-ntbw6iViONUTfNxgWd8yDE/rs:fill:700:467/plain/https://icotto.k-img.com/system/press_images/000/611/490/a6bf21f5dc63c12d47029ae643b77f744e3409b6.jpg);
+            background-size: cover;
+        }
+
+        h1 {
+            color: dodgerblue;
+            padding: 3% 0 0 3%;
+            margin-top: 0%;
+            margin-bottom: 0%;
+            font-family: serif;
+            font-size: 40px;
+        }
+
+        h2 {
+            color: floralwhite;
+            margin-top: 0%;
+            padding-left: 3%;
+            font-size: 20px;
+            font-family: "Hannari";
+        }
+
+        #mapid {
+            height: 500px;
+            width: 750px
+        }
+
+        #mapid a {
+            font-size: 15px;
+        }
+
+        #btnCurLocation {
+            height: 50px;
+            width: 150px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1%;
+            padding-top: 3%
+        }
+
+        .button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 5%
+        }
+
+    </style>
 </head>
+
 <body>
-  <header>
-    <div class="container">
-      <div class="header-left">
-        <img class="logo" src="https://prog-8.com/images/html/advanced/main_logo.png">
-      </div>
-      <span class="fa fa-bars menu-icon"></span>
-      <div class="header-right">
-        <a href="https://prog-8.com/docs/github-pages">レッスン</a>
-        <a href="#">新規登録</a>
-        <a href="#" class="login">ログイン</a>
-      </div>
-    </div>
-  </header>
-  <div class="top-wrapper">
-    <div class="container">
-      <h1>LEARN TO CODE.<br>LEARN TO BE CREATIVE.</h1>
-      <p>Progateはオンラインプログラミング学習サービスです。<br>初心者にもやさしいスライドとレッスンで、ウェブサービスを作りながらプログラミングを学んでいきましょう。</p>
-      <div class="btn-wrapper">
-        <a href="#" class="btn signup">新規登録はこちら</a>
-        <p>or</p>
-        <a href="#" class="btn facebook"><span class="fa fa-facebook"></span>Facebookで登録</a>
-        <a href="#" class="btn twitter"><span class="fa fa-twitter"></span>Twitterで登録</a>
-      </div>
-    </div>
-  </div>
-  <div class="lesson-wrapper">
-    <div class="container">
-      <div class="heading">
-        <h2>Learn Where to Get Started!</h2>
-      </div>
-      <div class="lessons">
-        <div class="lesson">
-          <div class="lesson-icon">
-            <img src="https://prog-8.com/images/html/advanced/html.png">
-            <p>HTML & CSS</p>
-          </div>
-          <p class="text-contents">ウェブページの作成に使用される言語です。HTMLとCSSを組み合わせることで、静的なページを作り上げることができます。</p>
+
+    <div class="wrap-container">
+
+        <h1>LHotels.com</h1>
+        <h2>岡山県のラブホテルについてのサイトです。</h2>
+
+        <div class=container>
+            <div id="mapid"></div>
+            <!-- 検索窓設置 -->
+            <!-- <div id='searchContainer' style="position: fixed;"></div> -->
         </div>
-        <div class="lesson">
-          <div class="lesson-icon">
-            <img src="https://prog-8.com/images/html/advanced/jQuery.png">
-            <p>jQuery</p>
-          </div>
-          <p class="text-contents">素敵な動きを手軽に実装できるJavaScriptライブラリです。 アニメーション効果をつけたり、Ajax（エイジャックス）を使って外部ファイルを読み込んだりと色々なことができます。</p>
+
+        <div class=button>
+            <button id="btnCurLocation" onClick="setCurLocation()">現在地を表示</button>
         </div>
-        <div class="lesson">
-          <div class="lesson-icon">
-            <img src="https://prog-8.com/images/html/advanced/ruby.png">
-            <p>Ruby</p>
-          </div>
-          <p class="text-contents">オープンソースの動的なプログラミング言語で、 シンプルさと高い生産性を備えています。大きなWebアプリケーションから小さな日用ツールまで、さまざまなソフトウェアを作ることができます。</p>
-        </div>
-        <div class="lesson">
-          <div class="lesson-icon">
-            <img src="https://prog-8.com/images/html/advanced/php.png">
-            <p>PHP</p>
-          </div>
-          <p class="text-contents">HTMLだけではページの内容を変えることはできません。PHPはHTMLにプログラムを埋め込み、それを可能にします。</p>
-        </div>
-      </div>
-      <div class="clear"></div>
+
     </div>
-  </div>
-  <div class="message-wrapper">
-    <div class="container">
-      <div class="heading">
-        <h2>さぁ、あなたもProgateでプログラミングを学んでみませんか?</h2>
-        <h3>Let's learn to code, learn to be creative!</h3>
-      </div>
-      <span class="btn message">さっそく開発する</span>
-    </div>
-  </div>
-  <footer>
-    <div class="container">
-      <img src="https://prog-8.com/images/html/advanced/footer_logo.png">
-      <p>Learn to Code, Learn to be Creative.</p>
-    </div>
-  </footer>
+
+    <script>
+        var mymap = L.map('mapid').setView([34.653629744544524, 133.88682408164476], 15);
+        const filterCondition = [
+            "A)駐車場がガレージ",
+            "B)クロームキャスト",
+            "C)ウォーターサーバー",
+            "A&B",
+            "A&C",
+            "B&C",
+            "A&B&C",
+            "すべてに該当しない"
+        ]
+
+        const koikarasweets = [
+            34.646700224872724,
+            133.863327086448,
+            "恋からsweets 男塾ホテルグループ",
+            "【土曜日フリータイム】<br>4:00～24:00の間で<br>最大10時間ご利用",
+            "【↑料金】<br>スタンダード5,480円<br>プレミアム5,980円",
+            "【情報ソース】<br><a href= 'https://otokojuku-hotel.group/koikara-sweets/' target='_blank'>公式HP</a><br><a href= 'https://happyhotel.jp/hotels/610380' target='_blank'>ハッピーホテル</a><br><a href= 'https://happyhotel.jp/reserve/hotels/610380' target='_blank'>予約できます</a>"
+        ]
+
+        const mahounopumpkin = [
+            34.64665179484492,
+            133.86408358913621,
+            "岡山魔法のパンプキンスイート＆シークレット",
+            "【土曜日フリータイム】<br>4:00～19:00の間で<br>最大15時間ご利用",
+            "【↑料金】<br>5,490円",
+            "【情報ソース】<br><a href= 'https://www.chapel-hotel.co.jp/okayama/h045/' target='_blank'>公式HP</a><br><a href= 'https://happyhotel.jp/hotels/780017' target='_blank'>ハッピーホテル</a>"
+        ]
+
+        const finegarden2 = [
+            34.647126463553384,
+            133.86488636001675,
+            "ファインガーデン岡山II",
+            "【土曜日フリータイム】<br>9:00～18:00の間で<br>最大7時間ご利用",
+            "【↑料金】<br>Eランク5,720円<br>Dランク5,940円<br>Cランク6,160円<br>Bランク6,380円<br>Aランク6,600円",
+            "【情報ソース】<br><a href= 'https://www.hotel-fine.co.jp/hotel/g-okayama2/' target='_blank'>公式HP</a><br><a href= 'https://happyhotel.jp/hotels/610436' target='_blank'>ハッピーホテル</a>"
+        ]
+
+        const restay = [
+            34.64728369090206,
+            133.86581555085644,
+            "レステイ 岡山",
+            "【土曜日フリータイム】<br>6:00～翌3:00の間で<br>最大6時間ご利用<br>6:00～翌3:00の間で<br>最大9時間ご利用",
+            "【↑料金】<br>スタンダード6,130円<br>スタンダード7,230円",
+            "【情報ソース】<br><a href= 'https://www.restayhotels.com/' target='_blank'>公式HP</a><br><a href= 'https://happyhotel.jp/hotels/610124' target='_blank'>ハッピーホテル</a>"
+        ]
+
+
+
+        var marker = L.marker([34.64728369090206, 133.86581555085644]).addTo(mymap);
+        marker.bindPopup("<b>レステイ 岡山</b><br>【土曜日フリータイム】<br>6:00～翌3:00の間で<br>最大6時間ご利用<br>6:00～翌3:00の間で<br>最大9時間ご利用<br>【↑料金】<br>スタンダード6,130円<br>スタンダード7,230円<br>【情報ソース】<br><a href= 'https://www.restayhotels.com/' target='_blank'>公式HP</a><br><a href= 'https://happyhotel.jp/hotels/610124' target='_blank'>ハッピーホテル</a>").openPopup();
+        var marker = L.marker([34.5980702894063, 133.760161855135]).addTo(mymap);
+        marker.bindPopup("<b>HOTEL ANLI (ホテル アンリ)</b><br>【土曜日フリータイム】<br>05:00～18:00の間で<br>最大13時間ご利用<br>13:00～20:00の間で<br>最大7時間ご利用<br>【↑料金】<br>7000円<br>【情報ソース】<br><a href= 'https://www.hotenavi.com/anli/' target='_blank'>公式HP</a><br><a href= 'https://happyhotel.jp/hotels/610086' target='_blank'>ハッピーホテル</a>").openPopup();
+        var marker = L.marker([34.53300968848685, 133.80725268087502]).addTo(mymap);
+        marker.bindPopup("<b>ホテル 白雪姫</b><br>【土曜日フリータイム】<br>04:00～24:00の間で<br>最大8時間ご利用<br>04:00～24:00の間で<br>最大16時間ご利用<br>【↑料金】<br>4300円～5100円<br>5300円～6100円<br>【情報ソース】<br>公式HPなし<br><a href= 'https://happyhotel.jp/hotels/610108' target='_blank'>ハッピーホテル</a>").openPopup();
+        var marker = L.marker([34.525160872941356, 133.78788701095058]).addTo(mymap);
+        marker.bindPopup("<b>ホテル 潤 (ホテル ウルウ)</b><br>【土曜日フリータイム】<br>05:00～16:00の間で<br>最大11時間ご利用<br>11:00～20:00の間で<br>最大9時間ご利用<br>【↑料金】<br>Dランク6,010円<br>Dランク6,010 円<br>【情報ソース】<br><a href= 'https://hotel-uruu.com/' target='_blank'>公式HP</a><br><a href= 'https://couples.jp/hotel-details/21216' target='_blank'>カップルズ</a>").openPopup();
+        var marker = L.marker([34.61326927110548, 133.78108268862968]).addTo(mymap);
+        marker.bindPopup("<b>HOTEL VITA (ホテルビータ)</b><br>【土曜日フリータイム】<br>5時〜20時の間で<br>最大15時間ご利用<br>【↑料金】<br>スタンダード¥6,900<br>【情報ソース】<br><a href= 'https://hotel-vita.jp/index.html' target='_blank'>公式HP</a><br><a href= 'https://happyhotel.jp/hotels/780351' target='_blank'>ハッピーホテル</a>").openPopup();
+        var marker = L.marker([34.626060527293426, 133.79549570808098]).addTo(mymap);
+        marker.bindPopup("<b>KNOB【BVCグループ】</b><br>【土曜日フリータイム】<br>5:00～20:00の間で<br>最大15時間ご利用<br>【↑料金】<br>ECONOMY ￥6,900<br>MODERATE￥7,800<br>DELUXE￥8,300<br>LUXURY￥9,000<br>SUITE￥9,800<br>【情報ソース】<br><a href= 'https://www.bvcgroup-knob.com/' target='_blank'>公式HP</a><br><a href= 'https://happyhotel.jp/hotels/780468' target='_blank'>ハッピーホテル</a>").openPopup();
+        var marker = L.marker([34.62521689024155, 133.78371905070787]).addTo(mymap);
+        marker.bindPopup("<b>HOTEL CRYSTAL</b><br>【土曜日フリータイム】<br>時間は自由で<br>最大4時間ご利用<br>【↑料金】<br>スタンダード5,600円<br>モデレート6,000円<br>スーペリア6,800円<br>デラックス7,200円<br>エグゼクティブ7,800円<br>【情報ソース】<br><a href= 'https://h-crystal.jp/' target='_blank'>公式HP</a><br><a href= 'https://happyhotel.jp/hotels/610692' target='_blank'>ハッピーホテル</a>").openPopup();
+        var marker = L.marker([34.57712350135579, 133.74781669701215]).addTo(mymap);
+        marker.bindPopup("<b>ホテル パレットゴールド</b><br>【土曜日フリータイム】<br>5時～20時の間で<br>最大15時間ご利用<br>【↑料金】<br>C5,600円<br>B5,900円<br>A6,800円<br>S7,000円<br>SS8,300円<br>【情報ソース】<br><a href= 'https://www.hotenavi.com/palette-g/' target='_blank'>公式HP</a><br><a href= 'https://happyhotel.jp/hotels/780055' target='_blank'>ハッピーホテル</a>").openPopup();
+        var marker = L.marker([34.59136154574375, 133.78278480726775]).addTo(mymap);
+        marker.bindPopup("<b>Hotel XX</b><br>【土曜日フリータイム】<br>6:00～23:00の間で<br>最大 17時間ご利用<br>【↑料金】<br>5,490円～6,990円<br>【情報ソース】<br><a href= 'http://www.hotel-xx.com/index.html' target='_blank'>公式HP</a><br><a href= 'https://happyhotel.jp/hotels/780257' target='_blank'>ハッピーホテル</a>").openPopup();
+        var marker = L.marker([34.52253564717364, 133.76555616910787]).addTo(mymap);
+        marker.bindPopup("<b>Hotel Maxim</b><br>【土曜日フリータイム】<br>5:00～16:00の間で<br>最大 10時間ご利用<br>12:00～22:00の間で<br>最大 10時間ご利用<br>【↑料金】<br>￥5,500～￥7,500<br>【情報ソース】<br><a href= 'https://hotenavi.com/maxim/index.html' target='_blank'>公式HP</a><br><a href= 'https://happyhotel.jp/hotels/610472' target='_blank'>ハッピーホテル</a>").openPopup();
+        var marker = L.marker([34.62822840045314, 133.89154414144116]).addTo(mymap);
+        marker.bindPopup("<b>HOTEL La bijou（ビジュー）</b><br>【土曜日フリータイム】<br>6:00～18:00の間で<br>最大12時間ご利用<br>13:00～20:00の間で<br>最大7時間ご利用<br>【↑料金】<br>￥5,990～￥8,300<br>￥5,990～￥8,300<br>【情報ソース】<br><a href= 'https://hayama-hotels.com/hotel/index.php?sid=47' target='_blank'>公式HP</a><br><a href= 'https://happyhotel.jp/hotels/780013' target='_blank'>ハッピーホテル</a>").openPopup();
+        var marker = L.marker([34.59991854953331, 133.8141969149656]).addTo(mymap);
+        marker.bindPopup("<b>LUXURY HOTEL フェアリー</b><br>【土曜日フリータイム】<br>6:00～20:00の間で<br>最大14時間ご利用<br>【↑料金】<br>S type 6,400 円<br>ST type 7,100 円<br>SD type 7,600 円<br>DX type 8,200 円<br>L type 9,300 円(210&308)<br>【情報ソース】<br><a href= 'https://h-fairy.jp/hayashima/' target='_blank'>公式HP</a><br><a href= 'https://happyhotel.jp/hotels/780010' target='_blank'>ハッピーホテル</a>").openPopup();
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, '
+        }).addTo(mymap);
+
+        function setCurLocation() {
+            if (navigator.geolocation == false) {
+                alert('現在地を取得できませんでした。');
+                return;
+            }
+
+            function success(e) {
+                var lat = e.coords.latitude;
+                var lng = e.coords.longitude;
+                mymap.setView([lat, lng], 15);
+                L.marker([lat, lng]).addTo(mymap).bindPopup('現在地').openPopup();
+            };
+
+            function error() {
+                alert('現在地を取得できませんでした。');
+            };
+
+            navigator.geolocation.getCurrentPosition(success, error);
+        }
+
+        /* 検索窓オプション
+        var options = {
+            geojsonServiceAddress: "./testgeojsondata.json",
+            placeholderMessage: "検索条件を入力してください。",
+            notFoundMessage: "に一致する検索対象がありません。",
+            notFoundHint: "検索条件を変えて再検索してください。",
+            pointGeometryZoomLevel: 10
+        };
+
+        $("#searchContainer").GeoJsonAutocomplete(options);
+        検索窓オプションここまで*/
+
+        /* 登録リスト
+        // Locationlist
+        var locList = [{
+                title: '恋からsweets 男塾ホテルグループ',
+                latlng: [34.646700224872724, 133.863327086448],
+                zoom: 15
+            },
+            {
+                title: 'point_2',
+                latlng: [35.7101, 139.8127],
+                zoom: 15
+            },
+            {
+                title: 'point_3',
+                latlng: [35.7101, 139.8167],
+                zoom: 15
+            }
+        ];
+
+        var locListCtrl = new L.control.locationlist({
+            locationsList: locList,
+            showList: true
+        });
+
+        mymap.addControl(locListCtrl);
+
+        locListCtrl.on('prev', function() {
+            alert('prev call back function.');
+        });
+        locListCtrl.on('next', function() {
+            alert('next call back function.');
+        });
+
+        // add marker
+        for (let locObj of locList) {
+            L.marker(locObj.latlng).addTo(mymap);
+        }
+        登録リストここまで*/
+
+
+
+        var fistMarker = L.marker([koikarasweets[0], koikarasweets[1]], {
+            tags: [filterCondition[0]]
+        }).addTo(mymap).bindPopup(koikarasweets[2].bold() + '<br>' + koikarasweets[3] + '<br>' + koikarasweets[4] + '<br>' + koikarasweets[5]);
+
+        var secondMarker = L.marker([mahounopumpkin[0], mahounopumpkin[1]], {
+            tags: [filterCondition[1]]
+        }).addTo(mymap).bindPopup(mahounopumpkin[2].bold() + '<br>' + mahounopumpkin[3] + '<br>' + mahounopumpkin[4] + '<br>' + mahounopumpkin[5]);
+
+        var thirdMarker = L.marker([finegarden2[0], finegarden2[1]], {
+            tags: [filterCondition[7]]
+        }).addTo(mymap).bindPopup(finegarden2[2].bold() + '<br>' + finegarden2[3] + '<br>' + finegarden2[4] + '<br>' + finegarden2[5]);
+
+        var forthMarker = L.marker([restay[0], restay[1]], {
+            tags: [filterCondition[0]]
+        }).addTo(mymap).bindPopup(restay[2].bold() + '<br>' + restay[3] + '<br>' + restay[4] + '<br>' + restay[5]);
+
+        L.control.tagFilterButton({
+            data: [filterCondition[0], filterCondition[1], filterCondition[2], filterCondition[3], filterCondition[4], filterCondition[5], filterCondition[6], filterCondition[7]],
+            icon: '"▼"'
+        }).addTo(mymap);
+
+    </script>
+
 </body>
+
 </html>
