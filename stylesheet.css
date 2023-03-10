@@ -24,7 +24,7 @@
 
     #mapid {
         height: 500px;
-        width: 750px
+        width: 750px;
     }
 
     #mapid a {
@@ -52,7 +52,8 @@
     }
 
     @media all and (max-width: 480px) {
-        h1 {
-            color: black;
+
+        #mapid {
+            width: 80%;
         }
     }
